@@ -1,75 +1,66 @@
-// ODDS API
-// var APIKey = 'bc83371589msh23bd20d358b99c1p105a91jsnd199196904df';
-// var oddsAPI = 'https://sports-odds-betapi.p.rapidapi.com/v1/events/1/0/list/20/line/ru?appid=' + APIKey;
+// Movies API
+var moviesURL = "https://www.omdbapi.com/?i=tt3896198&apikey=4e92771";
 
-// fetch(oddsAPI)
-//     .then(function(res) {
-//         console.log(res);
-//         return res.json();
-//     })
-//     .then(function(data) {
-//         console.log(data);
-//     })
-
-// const axios = require("axios");
-
-// const options = {
-//   method: 'GET',
-//   url: 'https://sports-odds-betapi.p.rapidapi.com/v1/events/1/0/list/20/line/ru',
-//   headers: {
-//     Package: '4a788ec11cd42226e2fdcbd62253379c',
-//     'X-RapidAPI-Key': 'bc83371589msh23bd20d358b99c1p105a91jsnd199196904df',
-//     'X-RapidAPI-Host': 'sports-odds-betapi.p.rapidapi.com'
-//   }
-// };
-
-// axios.request(options).then(function (response) {
-// 	console.log(response.data);
-// }).catch(function (error) {
-// 	console.error(error);
-// });
-
-// console.log('hello');
-
-// const options = {
-// 	method: 'GET',
-// 	headers: {
-// 		Package: '4a788ec11cd42226e2fdcbd62253379c',
-// 		'X-RapidAPI-Key': 'bc83371589msh23bd20d358b99c1p105a91jsnd199196904df',
-// 		'X-RapidAPI-Host': 'sports-odds-betapi.p.rapidapi.com'
-// 	}
-// };
-
-// fetch('https://sports-odds-betapi.p.rapidapi.com/v1/events/0/0/list/20/line/ru', options)
-// 	.then(response => response.json())
-// 	.then(response => console.log(response))
-// 	.catch(err => console.error(err));
+fetch(moviesURL)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data)
+	  console.log(data.Ratings[0].Value);
+    });
 
 
-const options1 = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': 'bc83371589msh23bd20d358b99c1p105a91jsnd199196904df',
-		'X-RapidAPI-Host': 'tennis-live-data.p.rapidapi.com'
-	}
-};
+// Google API
+let map, infoWindow;
 
-fetch('https://tennis-live-data.p.rapidapi.com/matches-by-date/2020-09-06', options1)
-	.then(response => response.json())
-	.then(response => console.log(response))
-	.catch(err => console.error(err));
-	
+function initMap() {
+	console.log(google);
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: -34.397, lng: 150.644 },
+    zoom: 6,
+  });
+  infoWindow = new google.maps.InfoWindow();
 
-// Second API
-const options2 = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': 'bc83371589msh23bd20d358b99c1p105a91jsnd199196904df',
-		'X-RapidAPI-Host': 'ultimate-tennis1.p.rapidapi.com'
-	}
-};
+  const locationButton = document.createElement("button");
 
-fetch('https://ultimate-tennis1.p.rapidapi.com/live_scores', options2)
-	.then(response => response.json())
-	.then(response => console.log(response))
-	.catch(err => console.error(err));
+  locationButton.textContent = "Pan to Current Location";
+  locationButton.classList.add("custom-map-control-button");
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+  locationButton.addEventListener("click", () => {
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+
+          infoWindow.setPosition(pos);
+          infoWindow.setContent("Location found.");
+          infoWindow.open(map);
+          map.setCenter(pos);
+        },
+        () => {
+          handleLocationError(true, infoWindow, map.getCenter());
+        }
+      );
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+  });
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(
+    browserHasGeolocation
+      ? "Error: The Geolocation service failed."
+      : "Error: Your browser doesn't support geolocation."
+  );
+  infoWindow.open(map);
+}
+
+window.initMap = initMap;
