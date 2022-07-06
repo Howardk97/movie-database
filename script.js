@@ -65,11 +65,11 @@ const options2 = {
 	method: 'GET',
 	headers: {
 		'X-RapidAPI-Key': 'bc83371589msh23bd20d358b99c1p105a91jsnd199196904df',
-		'X-RapidAPI-Host': 'sports-live-scores.p.rapidapi.com'
+		'X-RapidAPI-Host': 'ultimate-tennis1.p.rapidapi.com'
 	}
 };
 
-fetch('https://sports-live-scores.p.rapidapi.com/football/live', options2)
+fetch('https://ultimate-tennis1.p.rapidapi.com/live_scores', options2)
 	.then(response => response.json())
 	.then(response => console.log(response))
 	.catch(err => console.error(err));
