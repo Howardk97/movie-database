@@ -1,22 +1,84 @@
+// Holds element that ratings will be in
+var ratingContainer = document.getElementById('rating-container');
+
+// Search btn
+var searchBtn = document.getElementById("search-btn");
+
+// console.log(imdbRating);
+console.log(ratingContainer);
+// console.log(rottenRating);
+// console.log(metacriticRating);
+
+// ratingContainer.appendChild(imdbRating);
+// console.log(ratingContainer);
+
+
+
 // Movies API
-var moviesURL = "https://www.omdbapi.com/?i=tt3896198&apikey=4e92771";
+function genRatings() {
+	ratingContainer.textContent = " ";
+	var movieName = document.getElementById('search-input').value;
 
-fetch(moviesURL)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data)
-	  console.log(data.Ratings[0].Value);
-    });
+	console.log(movieName);
+	var moviesURL = "https://www.omdbapi.com/?t=" + movieName + "&apikey=4e92771";
 
+	fetch(moviesURL)
+		.then(function (response) {
+		return response.json();
+		})
+		.then(function (data) {
+		console.log(data)
+		// console.log(data.Ratings[0].Value);
+		var ratingsTitle = document.createElement('h1');
+
+	
+		
+		// displays ratings on webpage
+		ratingContainer.appendChild(ratingsTitle);
+		ratingsTitle.textContent = movieName + " Ratings";
+		console.log(data.Ratings.length);
+		
+		for(var i = 0; i < data.Ratings.length; i++) {
+			if (data.Ratings[i].Source === "Internet Movie Database") {
+				var imdbRating = document.createElement('li');
+				ratingContainer.appendChild(imdbRating);
+				imdbRating.textContent = "IMDB: " + data.Ratings[i].Value.toString();
+			}
+
+			if (data.Ratings[i].Source === "Rotten Tomatoes") {
+				var rottenRating = document.createElement('li');
+				ratingContainer.appendChild(rottenRating);
+				rottenRating.textContent = "Rotten Tomatoes: " + data.Ratings[i].Value.toString();
+			}
+
+			if (data.Ratings[i].Source === "Metacritic") {
+				var metacriticRating = document.createElement('li');
+				ratingContainer.appendChild(metacriticRating);
+				metacriticRating.textContent = "Metacritic: " + data.Ratings[i].Value.toString();
+			}
+
+			else {
+				console.log("enter a movie title");
+			}
+		}
+
+
+
+		// imdbRating.textContent = "IMDB: " + data.Ratings[0].Value.toString();
+		// rottenRating.textContent = "Rotten Tomatoes: " + data.Ratings[1].Value.toString();
+		// metacriticRating.textContent = "Metacritic: " + data.Ratings[2].Value.toString();
+		});
+
+}
+
+searchBtn.addEventListener('click', genRatings);
 
 // Google API
 let map, infoWindow;
 
 function initMap() {
 	console.log(google);
-  map = new google.maps.Map(document.getElementById("map"), {
+  	map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: -34.397, lng: 150.644 },
     zoom: 6,
   });
