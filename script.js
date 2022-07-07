@@ -197,6 +197,8 @@ function genInfo() {
 		if(data.Genre != 'N/A') {
 			movLang.textContent = data.Language;
 		}
+
+		movInfo.style.border = "thick solid black"
 	}
 	})
 }
