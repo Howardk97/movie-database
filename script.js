@@ -16,10 +16,15 @@ console.log(ratingContainer);
 
 // Movies API
 function genRatings() {
+	// Clear page
 	ratingContainer.textContent = " ";
+
+	// User input name
 	var movieName = document.getElementById('search-input').value;
 
 	console.log(movieName);
+
+	// 1st movie API
 	var moviesURL = "https://www.omdbapi.com/?t=" + movieName + "&apikey=4e92771";
 
 	fetch(moviesURL)
@@ -62,6 +67,21 @@ function genRatings() {
 			}
 		}
 
+		// second movie API
+		const options = {
+			method: 'GET',
+			headers: {
+				'X-RapidAPI-Key': 'bc83371589msh23bd20d358b99c1p105a91jsnd199196904df',
+				'X-RapidAPI-Host': 'movie-database-alternative.p.rapidapi.com'
+			}
+		};
+		
+		fetch('https://movie-database-alternative.p.rapidapi.com/?s=' + movieName + '&r=json&page=1', options)
+			.then(function(res) {
+				return res.json();
+			}).then(function(data) {
+				console.log(data);
+			})
 
 
 		// imdbRating.textContent = "IMDB: " + data.Ratings[0].Value.toString();
@@ -73,56 +93,3 @@ function genRatings() {
 
 searchBtn.addEventListener('click', genRatings);
 
-// Google API
-let map, infoWindow;
-
-function initMap() {
-	console.log(google);
-  	map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 6,
-  });
-  infoWindow = new google.maps.InfoWindow();
-
-  const locationButton = document.createElement("button");
-
-  locationButton.textContent = "Pan to Current Location";
-  locationButton.classList.add("custom-map-control-button");
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-  locationButton.addEventListener("click", () => {
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-
-          infoWindow.setPosition(pos);
-          infoWindow.setContent("Location found.");
-          infoWindow.open(map);
-          map.setCenter(pos);
-        },
-        () => {
-          handleLocationError(true, infoWindow, map.getCenter());
-        }
-      );
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
-    }
-  });
-}
-
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(
-    browserHasGeolocation
-      ? "Error: The Geolocation service failed."
-      : "Error: Your browser doesn't support geolocation."
-  );
-  infoWindow.open(map);
-}
-
-window.initMap = initMap;
