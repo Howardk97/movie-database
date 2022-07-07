@@ -81,6 +81,7 @@ function genRatings() {
 				return res.json();
 			}).then(function(data) {
 				console.log(data);
+				
 			})
 
 
