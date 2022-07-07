@@ -91,5 +91,63 @@ function genRatings() {
 
 }
 
+var titleContainer = document.getElementById("mov-title");
+var imgContainer = document.getElementById("mov-img");
+function getPost ()
+{
+	//resets image and title
+	titleContainer.textContent = "";
+	imgContainer.textContent = "";
+
+	// User input name
+	var movieName = document.getElementById('search-input').value;
+
+	console.log(movieName);
+
+	// 2nd movie API
+	const options2 = {
+		method: 'GET',
+		headers: {
+			'X-RapidAPI-Key': 'bc83371589msh23bd20d358b99c1p105a91jsnd199196904df',
+			'X-RapidAPI-Host': 'movie-database-alternative.p.rapidapi.com'
+		}
+	}
+	var moviesURL = 'https://movie-database-alternative.p.rapidapi.com/?s=' + movieName + '&r=json&page=1';
+
+	fetch(moviesURL, options2)
+	.then(function(res2){
+		return res2.json();
+	})
+	.then(function(data2){
+		console.log(data2);
+		//data2.Search[0].Title
+		//data2.Search[0].Title.Poster
+
+	if(data2.length != 0)
+	{
+		if(data2.Search[0] != 'N/A')
+		{
+		//	console.log(data2.Search[0].Poster);
+		var imgPage = document.createElement('img');
+		imgContainer.appendChild(imgPage);
+		imgPage.src = data2.Search[0].Poster;
+
+		}
+
+		var titlePage = document.createElement('h1');
+		titleContainer.appendChild(titlePage);
+		titlePage.textContent = data2.Search[0].Title;
+
+	}
+
+	//for(var i = 0; i < data2.length; i++){}
+
+	})
+
+
+}
+
+
+searchBtn.addEventListener('click', getPost);
 searchBtn.addEventListener('click', genRatings);
 
