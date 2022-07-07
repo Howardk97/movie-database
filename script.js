@@ -40,8 +40,8 @@ function genRatings() {
 
 	
 		
-		// title of critic ratings section
 		ratingContainer.appendChild(ratingsTitle);
+		ratingContainer.style.border = "thick solid black";
 		ratingsTitle.textContent = movieName + " Ratings";
 		console.log(data.Ratings.length);
 		
