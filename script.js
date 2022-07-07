@@ -39,7 +39,9 @@ function genRatings() {
 	
 		
 		// displays ratings on webpage
+
 		ratingContainer.appendChild(ratingsTitle);
+		ratingContainer.style.border = "thick solid black";
 		ratingsTitle.textContent = movieName + " Ratings";
 		console.log(data.Ratings.length);
 		
