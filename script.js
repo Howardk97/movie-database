@@ -27,24 +27,25 @@ function genRatings() {
 	// 1st movie API
 	var moviesURL = "https://www.omdbapi.com/?t=" + movieName + "&apikey=4e92771";
 
+	// Sanitize the data
 	fetch(moviesURL)
 		.then(function (response) {
 		return response.json();
 		})
 		.then(function (data) {
 		console.log(data)
+
 		// console.log(data.Ratings[0].Value);
 		var ratingsTitle = document.createElement('h1');
 
 	
 		
-		// displays ratings on webpage
-
 		ratingContainer.appendChild(ratingsTitle);
 		ratingContainer.style.border = "thick solid black";
 		ratingsTitle.textContent = movieName + " Ratings";
 		console.log(data.Ratings.length);
 		
+		// Display ratings
 		for(var i = 0; i < data.Ratings.length; i++) {
 			if (data.Ratings[i].Source === "Internet Movie Database") {
 				var imdbRating = document.createElement('li');
@@ -67,7 +68,11 @@ function genRatings() {
 			else {
 				console.log("enter a movie title");
 			}
+
+			
 		}
+
+
 
 		// second movie API
 		const options = {
@@ -86,10 +91,6 @@ function genRatings() {
 				
 			})
 
-
-		// imdbRating.textContent = "IMDB: " + data.Ratings[0].Value.toString();
-		// rottenRating.textContent = "Rotten Tomatoes: " + data.Ratings[1].Value.toString();
-		// metacriticRating.textContent = "Metacritic: " + data.Ratings[2].Value.toString();
 		});
 
 }
@@ -107,7 +108,7 @@ function getPost ()
 
 	console.log(movieName);
 
-	// 2nd movie API
+	// 2nd movie API (Contains list of 10 movies with movie name in it)
 	const options2 = {
 		method: 'GET',
 		headers: {
@@ -150,7 +151,59 @@ function getPost ()
 
 }
 
+// Global variables for info container
+var movInfo = document.getElementById('mov-info');
 
+function genInfo() {
+	// 1st movie API
+	var movieName = document.getElementById('search-input').value;
+	var moviesURL = "https://www.omdbapi.com/?t=" + movieName + "&apikey=4e92771";
+
+	// Sanitize the data
+	fetch(moviesURL)
+		.then(function (response) {
+		return response.json();
+		})
+		.then(function (data) {
+	// Variables for info elements
+	var infoTitle = document.createElement('h1');
+	var movGenre = document.createElement('p');
+	var movYear = document.createElement('p');
+	var movRating = document.createElement('p');
+	var movLang = document.createElement('p');
+
+	// Attach info elements to page
+	movInfo.appendChild(infoTitle);
+	movInfo.appendChild(movGenre);
+	movInfo.appendChild(movYear);
+	movInfo.appendChild(movRating);
+	movInfo.appendChild(movLang);
+
+	infoTitle.textContent = "Info";
+	// Display info in elements
+	if(data.length != 0) {
+		if(data.Genre != 'N/A') {
+			movGenre.textContent = data.Genre;
+		}
+		
+		if(data.Genre != 'N/A') {
+			movYear.textContent = data.Year;
+		}
+
+		if(data.Genre != 'N/A') {
+			movRating.textContent = data.Rated;
+		}
+
+		if(data.Genre != 'N/A') {
+			movLang.textContent = data.Language;
+		}
+
+		movInfo.style.border = "thick solid black";
+	}
+	})
+}
+
+searchBtn.addEventListener('click', genInfo);
 searchBtn.addEventListener('click', getPost);
 searchBtn.addEventListener('click', genRatings);
 
