@@ -198,7 +198,7 @@ function genInfo() {
 			movLang.textContent = data.Language;
 		}
 
-		movInfo.style.border = "thick solid black"
+		movInfo.style.border = "thick solid black";
 	}
 	})
 }
