@@ -151,6 +151,7 @@ function getPost ()
 
 }
 
+
 // Global variables for info container
 var movInfo = document.getElementById('mov-info');
 
@@ -203,6 +204,74 @@ function genInfo() {
 	})
 }
 
+var relatedTitles = document.getElementById('related-titles');
+
+function genRelated () {
+	var movieName = document.getElementById('search-input').value;
+
+	// second movie API
+	const options = {
+		method: 'GET',
+		headers: {
+			'X-RapidAPI-Key': 'bc83371589msh23bd20d358b99c1p105a91jsnd199196904df',
+			'X-RapidAPI-Host': 'movie-database-alternative.p.rapidapi.com'
+		}
+	};
+	
+	fetch('https://movie-database-alternative.p.rapidapi.com/?s=' + movieName + '&r=json&page=1', options)
+		.then(function(res) {
+			return res.json();
+		}).then(function(data) {
+			console.log(data);
+
+			var relatedLabel = document.createElement('h1');
+			relatedTitles.appendChild(relatedLabel);
+
+			if (data.length != 0) {
+				if(data.Search.length === 10) {
+					var title0 = document.createElement('p');
+					var title1 = document.createElement('p');
+					var title2 = document.createElement('p');
+					var title3 = document.createElement('p');
+					var title4 = document.createElement('p');
+					var title5 = document.createElement('p');
+					var title6 = document.createElement('p');
+					var title7 = document.createElement('p');
+					var title8 = document.createElement('p');
+					var title9 = document.createElement('p');
+
+					console.log(title0);
+
+					relatedLabel.textContent = "Related Searches";
+					title0.textContent = data.Search[0].Title;
+					title1.textContent = data.Search[1].Title;
+					title2.textContent = data.Search[2].Title;
+					title3.textContent = data.Search[3].Title;
+					title4.textContent = data.Search[4].Title;
+					title5.textContent = data.Search[5].Title;
+					title6.textContent = data.Search[6].Title;
+					title7.textContent = data.Search[7].Title;
+					title8.textContent = data.Search[8].Title;
+					title9.textContent = data.Search[9].Title;
+
+					relatedTitles.appendChild(title0);
+					relatedTitles.appendChild(title1);
+					relatedTitles.appendChild(title2);
+					relatedTitles.appendChild(title3);
+					relatedTitles.appendChild(title4);
+					relatedTitles.appendChild(title5);
+					relatedTitles.appendChild(title6);
+					relatedTitles.appendChild(title7);
+					relatedTitles.appendChild(title8);
+					relatedTitles.appendChild(title9);
+
+					relatedTitles.style.border = "thick solid black";
+		}
+	}
+	});
+}
+
+searchBtn.addEventListener('click', genRelated);
 searchBtn.addEventListener('click', genInfo);
 searchBtn.addEventListener('click', getPost);
 searchBtn.addEventListener('click', genRatings);
