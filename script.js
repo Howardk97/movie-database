@@ -91,10 +91,39 @@ function genRatings() {
 		});
 
 }
+var plotBox = document.getElementById('plot-box');
 
+function genPlot () {
+	// User input name
+	var movieName = document.getElementById('search-input').value;
+
+	console.log(movieName);
+
+	// 1st movie API
+	var moviesURL = "https://www.omdbapi.com/?t=" + movieName + "&apikey=4e92771";
+
+	fetch(moviesURL)
+		.then(function (response) {
+		return response.json();
+		})
+		.then(function (data) {
+
+	// plot elements
+	var plotTitle = document.createElement('h1');	
+	var plotShort = document.createElement('p');
+	var plotLong = document.createElement('p');
+
+	// placing elements on page 
+	plotBox.appendChild(plotTitle);
+	plotBox.appendChild(plotShort);
+	plotBox.appendChild(plotLong);
+
+	
+		})
+}
+searchBtn.addEventListener('click', genPlot);
 searchBtn.addEventListener('click', genRatings);
 
 
 
-// data.plot, add element, append 
 
