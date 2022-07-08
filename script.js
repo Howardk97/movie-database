@@ -94,19 +94,17 @@ function genRatings() {
 		});
 
 }
+var plotBox = document.getElementById('plot-box');
 
-var titleContainer = document.getElementById("mov-title");
-var imgContainer = document.getElementById("mov-img");
-function getPost ()
-{
-	//resets image and title
-	titleContainer.textContent = "";
-	imgContainer.textContent = "";
-
+function genPlot () {
 	// User input name
 	var movieName = document.getElementById('search-input').value;
 
 	console.log(movieName);
+
+
+	// 1st movie API
+	var moviesURL = "https://www.omdbapi.com/?t=" + movieName + "&apikey=4e92771";
 
 	// 2nd movie API (Contains list of 10 movies with movie name in it)
 	const options2 = {
@@ -144,12 +142,33 @@ function getPost ()
 
 	}
 
-	//for(var i = 0; i < data2.length; i++){}
 
-	})
+	fetch(moviesURL)
+		.then(function (response) {
+		return response.json();
+		})
+		.then(function (data) {
+
+	// plot elements
+	var plotTitle = document.createElement('h1');	
+	var plotShort = document.createElement('p');
+	
+	// placing elements on page 
+	plotBox.appendChild(plotTitle);
+	plotBox.appendChild(plotShort);
 
 
+	plotTitle.textContent = 'Plot';
+	plotShort.textContent = data.Plot.toString();
+	console.log (plotShort);
+	plotBox.style.border = 'thick solid black';
+		})
 }
+searchBtn.addEventListener('click', genPlot);
+searchBtn.addEventListener('click', genRatings);
+
+
+
 
 
 // Global variables for info container
@@ -275,4 +294,5 @@ searchBtn.addEventListener('click', genRelated);
 searchBtn.addEventListener('click', genInfo);
 searchBtn.addEventListener('click', getPost);
 searchBtn.addEventListener('click', genRatings);
+
 
