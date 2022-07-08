@@ -111,14 +111,16 @@ function genPlot () {
 	// plot elements
 	var plotTitle = document.createElement('h1');	
 	var plotShort = document.createElement('p');
-	var plotLong = document.createElement('p');
-
+	
 	// placing elements on page 
 	plotBox.appendChild(plotTitle);
 	plotBox.appendChild(plotShort);
-	plotBox.appendChild(plotLong);
 
-	
+
+	plotTitle.textContent = 'Plot';
+	plotShort.textContent = data.Plot.toString();
+	console.log (plotShort);
+	plotBox.style.border = 'thick solid black';
 		})
 }
 searchBtn.addEventListener('click', genPlot);
