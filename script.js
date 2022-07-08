@@ -43,7 +43,7 @@ function genRatings() {
 		ratingContainer.appendChild(ratingsTitle);
 		ratingContainer.style.border = "thick solid black";
 		ratingsTitle.textContent = movieName + " Ratings";
-		console.log(data.Ratings.length);
+		//console.log(data.Ratings.length);
 		
 		// Display ratings
 		for(var i = 0; i < data.Ratings.length; i++) {
@@ -309,7 +309,29 @@ function genRelated () {
 	}
 	});
 }
+var actorContainer = document.getElementById("Actors");
+function genActor() {
+	var movieName = document.getElementById('search-input').value;
+var moviesURL = "https://www.omdbapi.com/?t=" + movieName + "&apikey=4e92771";
+fetch(moviesURL)
+		.then(function (response) {
+		return response.json();
+		})
+		.then(function (data) {
+			console.log(data.Actors)
+			console.log(data)
+		// console.log(data.Ratings[0].Value);
+		var ActorsTitle = document.createElement('h1');
+		var actorList = document.createElement("div");
+		actorContainer.appendChild(ActorsTitle);
+		actorContainer.appendChild(actorList);
+		ActorsTitle.textContent = "Notable Actors";
+		actorList.textContent = data.Actors;
+		//actorContainer.style.border = "thick solid black";
+		});
+}
 
+searchBtn.addEventListener('click', genActor);
 searchBtn.addEventListener('click', genRelated);
 searchBtn.addEventListener('click', genInfo);
 searchBtn.addEventListener('click', genPlot);
