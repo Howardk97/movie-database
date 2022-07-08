@@ -96,7 +96,10 @@ function genRatings() {
 }
 var plotBox = document.getElementById('plot-box');
 
+
+
 function genPlot () {
+	plotBox.textContent = " ";
 	// User input name
 	var movieName = document.getElementById('search-input').value;
 
@@ -116,6 +119,7 @@ function genPlot () {
 	}
 	var moviesURL = 'https://movie-database-alternative.p.rapidapi.com/?s=' + movieName + '&r=json&page=1';
 
+
 	fetch(moviesURL, options2)
 	.then(function(res2){
 		return res2.json();
@@ -129,6 +133,8 @@ function genPlot () {
 	var titleContainer = document.getElementById('mov-title');
 	if(data2.length != 0)
 	{
+		imgContainer.textContent = " ";
+		titleContainer.textContent = ' ';
 		if(data2.Search[0] != 'N/A')
 		{
 		//	console.log(data2.Search[0].Poster);
@@ -186,6 +192,8 @@ var movImage = document.getElementById('mov-image');
 var movInfo = document.getElementById('mov-info');
 
 function genInfo() {
+
+	movInfo.textContent = " ";
 	// 1st movie API
 	var movieName = document.getElementById('search-input').value;
 	var moviesURL = "https://www.omdbapi.com/?t=" + movieName + "&apikey=4e92771";
@@ -237,6 +245,7 @@ function genInfo() {
 var relatedTitles = document.getElementById('related-titles');
 
 function genRelated () {
+	relatedTitles.textContent = " ";
 	var movieName = document.getElementById('search-input').value;
 
 	// second movie API
