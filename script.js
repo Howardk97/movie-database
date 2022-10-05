@@ -41,7 +41,7 @@ function genRatings() {
 	
 		
 		ratingContainer.appendChild(ratingsTitle);
-		ratingContainer.style.border = "thick solid black";
+		// ratingContainer.style.border = "thick solid black";
 		ratingsTitle.textContent = movieName + " Ratings";
 		//console.log(data.Ratings.length);
 		
@@ -169,14 +169,14 @@ function genPlot () {
 	var plotShort = document.createElement('p');
 	
 	// placing elements on page 
-	plotBox.appendChild(plotTitle);
+	// plotBox.appendChild(plotTitle);
 	plotBox.appendChild(plotShort);
 
 
 	plotTitle.textContent = 'Plot';
 	plotShort.textContent = data.Plot;
 	console.log (plotShort);
-	plotBox.style.border = 'thick solid black';
+	// plotBox.style.border = 'thick solid black';
 		})
 })
 }
@@ -212,7 +212,7 @@ function genInfo() {
 	var movLang = document.createElement('p');
 
 	// Attach info elements to page
-	movInfo.appendChild(infoTitle);
+	// movInfo.appendChild(infoTitle);
 	movInfo.appendChild(movGenre);
 	movInfo.appendChild(movYear);
 	movInfo.appendChild(movRating);
@@ -237,7 +237,7 @@ function genInfo() {
 			movLang.textContent = data.Language;
 		}
 
-		movInfo.style.border = "thick solid black";
+		// movInfo.style.border = "thick solid black";
 	}
 	})
 }
@@ -304,7 +304,7 @@ function genRelated () {
 					relatedTitles.appendChild(title8);
 					relatedTitles.appendChild(title9);
 
-					relatedTitles.style.border = "thick solid black";
+					// relatedTitles.style.border = "thick solid black";
 		}
 	}
 	});
@@ -325,7 +325,7 @@ fetch(moviesURL)
 		var actorList = document.createElement("div");
 		actorContainer.appendChild(ActorsTitle);
 		actorContainer.appendChild(actorList);
-		ActorsTitle.textContent = "Notable Actors";
+		// ActorsTitle.textContent = "Notable Actors";
 		actorList.textContent = data.Actors;
 		//actorContainer.style.border = "thick solid black";
 		});
